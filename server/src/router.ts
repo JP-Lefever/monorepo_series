@@ -13,11 +13,15 @@ router.get("/api/items", itemActions.browse);
 router.get("/api/items/:id", itemActions.read);
 router.post("/api/items", itemActions.add);
 
+import programActions from "./modules/program/programActions";
 /* ************************************************************************* */
 import sayAction from "./modules/say/sayActions";
-import programActions from "./modules/program/programActions";
+import categoryActions from "./modules/category/categoryActions";
 
 router.get("/", sayAction.sayWelcome);
 router.get("/api/programs", programActions.browse);
+router.get("/api/programs/:id", programActions.read);
+router.get("/api/categories", categoryActions.categoriesList);
+router.get("/api/categories/:id", categoryActions.category);
 
 export default router;
