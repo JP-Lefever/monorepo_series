@@ -21,7 +21,7 @@ import sayAction from "./modules/say/sayActions";
 router.get("/", sayAction.sayWelcome);
 router.get("/api/programs", programActions.browse);
 router.get("/api/programs/:id", programActions.read);
-router.get("/api/categories", categoryActions.categoriesList);
-router.get("/api/categories/:id", categoryActions.category);
+router.get("/api/categories", categoryActions.browse);
+router.get("/api/categories/:id", categoryActions.read);
 
 export default router;
