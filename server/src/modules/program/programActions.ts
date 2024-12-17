@@ -28,19 +28,71 @@ const programs = [
 import type { RequestHandler } from "express";
 import ProgramRepository from "./ProgramRepository";
 
-const browse: RequestHandler = async (req, res) => {
-  const programFromDB = await ProgramRepository.readAll();
-  res.json(programFromDB);
-};
-
-const read: RequestHandler = (req, res) => {
-  const parseId = Number.parseInt(req.params.id);
-  const program = programs.find((p) => p.id === parseId);
-  if (program != null) {
+const browse: RequestHandler = async (req, res, next) => {
+  try {
+    const program = await ProgramRepository.readAll();
     res.json(program);
-  } else res.sendStatus(404);
+  } catch (err) {
+    next(err);
+  }
 };
 
+const read: RequestHandler = async (req, res, next) => {
+  try {
+    const programId = Number.parseInt(req.params.id);
+    const program = await ProgramRepository.read(programId);
+    if (program != null) {
+      res.json(program);
+    } else res.sendStatus(404);
+  } catch (err) {
+    next(err);
+  }
+};
+const edit: RequestHandler = async (req, res, next) => {
+  try {
+    const program = {
+      id: Number(req.params.id),
+      title: req.body.title,
+      synopsis: req.body.synopsis,
+      poster: req.body.poster,
+      country: req.body.country,
+      year: req.body.year,
+    };
+    const affectedRows = await ProgramRepository.update(program);
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const add: RequestHandler = async (req, res, next) => {
+  try {
+    const newProgram = {
+      title: req.body.title,
+      synopsis: req.body.synopsis,
+      poster: req.body.poster,
+      country: req.body.country,
+      year: req.body.year,
+    };
+    const insertProgram = await ProgramRepository.create(newProgram);
+    res.status(201).json(insertProgram);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const destroy: RequestHandler = async (req, res, next) => {
+  try {
+    const programId = Number(req.params.id);
+    await ProgramRepository.delete(programId);
+  } catch (err) {
+    next(err);
+  }
+};
 // Export it to import it somewhere else
 
-export default { browse, read };
+export default { browse, read, add, edit, destroy };
