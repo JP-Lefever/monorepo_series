@@ -78,8 +78,10 @@ const add: RequestHandler = async (req, res, next) => {
       country: req.body.country,
       year: req.body.year,
     };
-    const insertProgram = await ProgramRepository.create(newProgram);
-    res.status(201).json(insertProgram);
+
+    const insertId = await ProgramRepository.create(newProgram);
+    console.info(req.body);
+    res.status(201).json({ insertId });
   } catch (err) {
     next(err);
   }
@@ -89,6 +91,7 @@ const destroy: RequestHandler = async (req, res, next) => {
   try {
     const programId = Number(req.params.id);
     await ProgramRepository.delete(programId);
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }

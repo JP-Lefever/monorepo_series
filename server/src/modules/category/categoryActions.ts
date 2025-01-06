@@ -94,6 +94,20 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
+const validate: RequestHandler = (req, res, next) => {
+  type validatioErrors = {
+    field: string;
+    message: string;
+  };
+  const errors: validatioErrors[] = [];
+  const { name } = req.body;
+
+  if (errors.length === 0) {
+    next();
+  } else {
+    res.status(400).json({ validationErrors: errors });
+  }
+};
 // Export them to import them somewhere else
 
-export default { browse, read, edit, add, destroy };
+export default { browse, read, edit, add, destroy, validate };
