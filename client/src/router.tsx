@@ -2,14 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 import Programs from "../src/pages/Programs";
 import App from "./App";
 
-import CategoryIndex from "./pages/CategoryIndex";
 import CategoryDetails from "./pages/CategoryDetails";
-import ProgramsDetails from "./pages/ProgramsDetails";
-import CategoryNew from "./pages/CategoryNew";
 import CategoryEdit from "./pages/CategoryEdit";
+import CategoryIndex from "./pages/CategoryIndex";
+import CategoryNew from "./pages/CategoryNew";
 import Home from "./pages/Home";
 import ProgramAdd from "./pages/ProgramAdd";
 import ProgramEdit from "./pages/ProgramEdit";
+import ProgramsDetails from "./pages/ProgramsDetails";
 
 export const mainRouter = createBrowserRouter([
   {

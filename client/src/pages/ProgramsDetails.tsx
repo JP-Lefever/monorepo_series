@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ProgramDeleteForm from "../components/ProgramDeleteForm";
 
 type ProgramDetail = {
@@ -28,7 +28,7 @@ export default function programsDetails() {
       <>
         <section>
           <Link to={`/programs/${id}/edit`}>Modifier</Link>
-          <ProgramDeleteForm id={id}>Supprimer</ProgramDeleteForm>
+          <ProgramDeleteForm id={String(id)}>Supprimer</ProgramDeleteForm>
         </section>
         <section>
           <h1>{program.title}</h1>

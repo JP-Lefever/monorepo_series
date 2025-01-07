@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
 type ProgramDeleteFormProps = {
-  id: number;
+  id: string | undefined;
   children: ReactNode;
 };
 
@@ -11,7 +11,7 @@ export default function ProgramDeleteForm({
   children,
 }: ProgramDeleteFormProps) {
   const navigate = useNavigate();
-  console.log(id);
+
   return (
     <form
       onSubmit={(e) => {
